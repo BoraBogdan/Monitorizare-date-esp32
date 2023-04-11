@@ -1,2 +1,7 @@
-package com.borabogdan.javaapi.entity;public class SensorDHT {
+package com.borabogdan.javaapi.entity;
+
+import jakarta.validation.constraints.NotNull;
+
+
+public record SensorDht(@NotNull double airHumidity, @NotNull double temperature) {
 }

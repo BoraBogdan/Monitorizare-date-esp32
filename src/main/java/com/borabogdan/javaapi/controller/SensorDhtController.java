@@ -1,6 +1,7 @@
 package com.borabogdan.javaapi.controller;
 
-import com.borabogdan.javaapi.dto.GetSensorDHT_DTO;
+import com.borabogdan.javaapi.dto.GetSensorDhtRequestDTO;
+import com.borabogdan.javaapi.dto.GetSensorDhtResponseDTO;
 
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
-public class SensorDHT_Controller {
+public class SensorDhtController {
 
     @PostMapping("/getDHT_data")
-    public ResponseEntity<GetSensorDHT_DTO> getSensorDHT_data(@RequestBody @Valid GetSensorDHT_DTO getSensorDHT_DTO) {
+    public ResponseEntity<GetSensorDhtResponseDTO> getSensorDHT_data(@RequestBody @Valid GetSensorDhtRequestDTO GetSensorDhtRequestDTO) {
         log.info("getSensorDHT_data(): Receiving DHT data");
-        GetSensorDHT_DTO response = new GetSensorDHT_DTO();
-        response.setTemperature(getSensorDHT_DTO.getTemperature());
-        response.setAirHumidity(getSensorDHT_DTO.getAirHumidity());
+        GetSensorDhtResponseDTO response = new GetSensorDhtResponseDTO();
+        response.setTemperature(GetSensorDhtRequestDTO.getTemperature());
+        response.setAirHumidity(GetSensorDhtRequestDTO.getAirHumidity());
         response.setMessage("Data is set");
 
         return new ResponseEntity<>(response, HttpStatus.OK);

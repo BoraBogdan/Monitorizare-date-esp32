@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class GetSensorDHT_DTO {
+public class GetSensorDhtResponseDTO {
 
     @NotNull
     private double airHumidity;
