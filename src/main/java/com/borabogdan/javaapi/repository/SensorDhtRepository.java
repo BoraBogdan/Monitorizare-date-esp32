@@ -1,4 +1,4 @@
 package com.borabogdan.javaapi.repository;
 
-public class SensorDhtRepository {
+public interface SensorDhtRepository {
 }
