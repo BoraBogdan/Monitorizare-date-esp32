@@ -5,12 +5,16 @@ import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
 import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.entity.SensorDht;
 import com.borabogdan.javaapi.repository.SensorDhtRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -20,7 +24,7 @@ public class SensorDhtService {
     @Autowired
     SensorDhtRepository sensorDhtRepository;
 
-    public AddSensorDhtResponseDTO addDhtData (AddSensorDhtRequestDTO request) {
+    public AddSensorDhtResponseDTO addDhtData(AddSensorDhtRequestDTO request) {
 
         SensorDht dataToBeInserted = SensorDht.builder()
                 .airHumidity(request.getAirHumidity())
@@ -58,5 +62,28 @@ public class SensorDhtService {
         return true;
     }
 
+    public List<GetSensorDhtDataDTO> getDhtDataFromDay(int day) {
 
+        List<GetSensorDhtDataDTO> elementsFromDB = new ArrayList<>();
+
+        sensorDhtRepository.findByDay(day).ifPresentOrElse(
+                list -> {
+                    if (list.isEmpty()) {
+                        throw new EntityNotFoundException("No entries on the day = " + day);
+                    }
+                    list.stream()
+                            .map(row -> GetSensorDhtDataDTO.builder()
+                                    .airHumidity(row.getAirHumidity())
+                                    .temperature(row.getTemperature())
+                                    .timestamp(row.getTimestamp())
+                                    .build()).forEach(elementsFromDB::add);
+                }
+                ,
+                () -> {
+                    throw new EntityNotFoundException("Error while fetching from DB");
+                }
+        );
+
+        return elementsFromDB;
+    }
 }
