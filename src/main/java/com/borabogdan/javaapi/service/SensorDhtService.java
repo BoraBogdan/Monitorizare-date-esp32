@@ -12,17 +12,19 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Log4j2
 @Service
 public class SensorDhtService {
 
+   private final SensorDhtRepository sensorDhtRepository;
+
     @Autowired
-    SensorDhtRepository sensorDhtRepository;
+    public SensorDhtService(SensorDhtRepository sensorDhtRepository) {
+        this.sensorDhtRepository = sensorDhtRepository;
+    }
 
     public AddSensorDhtResponseDTO addDhtData(AddSensorDhtRequestDTO request) {
 
@@ -42,14 +44,14 @@ public class SensorDhtService {
         return response;
     }
 
-    public List<GetSensorDhtDataDTO> getAlldhtData() {
+    public List<GetSensorDhtDataDTO> getAllDhtData() {
         return sensorDhtRepository.findAll().stream()
                 .map(row -> GetSensorDhtDataDTO.builder()
                         .airHumidity(row.getAirHumidity())
                         .temperature(row.getTemperature())
                         .timestamp(row.getTimestamp())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public boolean deleteAllData() {

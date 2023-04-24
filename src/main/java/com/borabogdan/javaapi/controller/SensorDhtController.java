@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,13 @@ import java.util.List;
 @RequestMapping("/dht")
 public class SensorDhtController {
 
+
+    private final SensorDhtService sensorDhtService;
+
     @Autowired
-    SensorDhtService sensorDhtService;
+    public SensorDhtController(SensorDhtService sensorDhtService) {
+        this.sensorDhtService = sensorDhtService;
+    }
 
     @PostMapping("/addData")
     public ResponseEntity<AddSensorDhtResponseDTO> addDhtData(@RequestBody @Valid AddSensorDhtRequestDTO request) {
@@ -38,7 +42,7 @@ public class SensorDhtController {
     @GetMapping("/getAllData")
     public List<GetSensorDhtDataDTO> getAllDhtData() {
         log.info("getAllDhtData(): Getting all the data from the DB");
-        return sensorDhtService.getAlldhtData();
+        return sensorDhtService.getAllDhtData();
     }
 
     @DeleteMapping("/deleteAllData")
