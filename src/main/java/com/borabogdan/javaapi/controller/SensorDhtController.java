@@ -3,6 +3,7 @@ package com.borabogdan.javaapi.controller;
 import com.borabogdan.javaapi.dto.AddSensorDhtRequestDTO;
 import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
 
+import com.borabogdan.javaapi.dto.GetAvailableDaysDTO;
 import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.service.SensorDhtService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +68,17 @@ public class SensorDhtController {
 
         log.info("getDataByDay(): Fetching data from day " + day);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAvailableDays")
+    public ResponseEntity<List<GetAvailableDaysDTO>> getAllAvailableDays() {
+        List <GetAvailableDaysDTO> response = new ArrayList<>();
+        try {
+            response = sensorDhtService.getAllAvailableDays();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 }

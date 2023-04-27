@@ -2,6 +2,7 @@ package com.borabogdan.javaapi.service;
 
 import com.borabogdan.javaapi.dto.AddSensorDhtRequestDTO;
 import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
+import com.borabogdan.javaapi.dto.GetAvailableDaysDTO;
 import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.entity.SensorDht;
 import com.borabogdan.javaapi.repository.SensorDhtRepository;
@@ -87,5 +88,13 @@ public class SensorDhtService {
         );
 
         return elementsFromDB;
+    }
+
+    public List<GetAvailableDaysDTO> getAllAvailableDays() {
+        return sensorDhtRepository.getAllTimestamps().stream()
+                .map(row -> GetAvailableDaysDTO.builder()
+                        .timestamp(row)
+                        .build())
+                .toList();
     }
 }
