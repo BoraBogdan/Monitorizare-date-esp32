@@ -7,6 +7,7 @@ import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.entity.SensorDht;
 import com.borabogdan.javaapi.repository.SensorDhtRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,11 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class SensorDhtService {
 
    private final SensorDhtRepository sensorDhtRepository;
 
-    @Autowired
-    public SensorDhtService(SensorDhtRepository sensorDhtRepository) {
-        this.sensorDhtRepository = sensorDhtRepository;
-    }
 
     public AddSensorDhtResponseDTO addDhtData(AddSensorDhtRequestDTO request) {
 
