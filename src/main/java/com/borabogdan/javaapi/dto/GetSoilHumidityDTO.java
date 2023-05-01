@@ -1,24 +1,21 @@
 package com.borabogdan.javaapi.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Builder
-public class GetSensorDhtDataDTO {
+public class GetSoilHumidityDTO {
 
     @NotNull
-    private double airHumidity;
-
-    @NotNull
-    private double temperature;
+    private int soilHumidity;
 
     @NotNull
     private Timestamp timestamp;

@@ -4,18 +4,16 @@ import com.borabogdan.javaapi.dto.AddSensorDhtRequestDTO;
 import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
 import com.borabogdan.javaapi.dto.GetAvailableDaysDTO;
 import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
-import com.borabogdan.javaapi.entity.SensorDht;
+import com.borabogdan.javaapi.entity.SensorDhtEntity;
 import com.borabogdan.javaapi.repository.SensorDhtRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -27,13 +25,14 @@ public class SensorDhtService {
 
     public AddSensorDhtResponseDTO addDhtData(AddSensorDhtRequestDTO request) {
 
-        SensorDht dataToBeInserted = SensorDht.builder()
+        SensorDhtEntity dataToBeInserted = SensorDhtEntity.builder()
                 .airHumidity(request.getAirHumidity())
                 .temperature(request.getTemperature())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .build();
+        dataToBeInserted.setMicrocontrollerID(request.getMicrocontrollerID());
 
-        SensorDht dataFromDB = sensorDhtRepository.save(dataToBeInserted);
+        SensorDhtEntity dataFromDB = sensorDhtRepository.save(dataToBeInserted);
 
         AddSensorDhtResponseDTO response = new AddSensorDhtResponseDTO();
         response.setAirHumidity(dataFromDB.getAirHumidity());
@@ -49,6 +48,7 @@ public class SensorDhtService {
                         .airHumidity(row.getAirHumidity())
                         .temperature(row.getTemperature())
                         .timestamp(row.getTimestamp())
+                        .microcontrollerid(row.getMicrocontrollerID())
                         .build())
                 .toList();
     }
@@ -77,6 +77,7 @@ public class SensorDhtService {
                                     .airHumidity(row.getAirHumidity())
                                     .temperature(row.getTemperature())
                                     .timestamp(row.getTimestamp())
+                                    .microcontrollerid(row.getMicrocontrollerID())
                                     .build()).forEach(elementsFromDB::add);
                 }
                 ,

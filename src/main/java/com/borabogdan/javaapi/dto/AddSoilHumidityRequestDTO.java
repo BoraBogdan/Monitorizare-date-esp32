@@ -1,21 +1,17 @@
 package com.borabogdan.javaapi.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
-public class AddSensorDhtRequestDTO {
+public class AddSoilHumidityRequestDTO {
 
     @NotNull
-    private double airHumidity;
-
-    @NotNull
-    private double temperature;
+    private int soilHumidity;
 
     @NotNull
     private int microcontrollerID;

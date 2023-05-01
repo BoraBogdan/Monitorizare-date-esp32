@@ -15,18 +15,21 @@ import java.sql.Timestamp;
 @Builder
 @Entity
 @Table(name = "sensor_dht_data")
-public class SensorDht {
+public class SensorDhtEntity extends AbstractEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer ID;
+    private Integer ID;
+
     @NotNull
     @Column(name = "air_humidity")
-    double airHumidity;
+    private double airHumidity;
+
     @NotNull
     @Column(name = "temperature")
-    double temperature;
+    private double temperature;
+
     @NotNull
     @Column(name = "timestamp")
-    Timestamp timestamp;
+    private Timestamp timestamp;
 }

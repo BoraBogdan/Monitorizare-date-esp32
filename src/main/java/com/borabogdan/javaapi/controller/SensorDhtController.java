@@ -8,6 +8,7 @@ import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.service.SensorDhtService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,15 +24,10 @@ import java.util.List;
 @Log4j2
 @RestController
 @RequestMapping("/dht")
+@RequiredArgsConstructor
 public class SensorDhtController {
 
-
     private final SensorDhtService sensorDhtService;
-
-    @Autowired
-    public SensorDhtController(SensorDhtService sensorDhtService) {
-        this.sensorDhtService = sensorDhtService;
-    }
 
     @PostMapping("/addData")
     public ResponseEntity<AddSensorDhtResponseDTO> addDhtData(@RequestBody @Valid AddSensorDhtRequestDTO request) {
