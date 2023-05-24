@@ -1,9 +1,6 @@
 package com.borabogdan.javaapi.service;
 
-import com.borabogdan.javaapi.dto.AddSensorDhtRequestDTO;
-import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
-import com.borabogdan.javaapi.dto.GetAvailableDaysDTO;
-import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
+import com.borabogdan.javaapi.dto.*;
 import com.borabogdan.javaapi.entity.SensorDhtEntity;
 import com.borabogdan.javaapi.repository.SensorDhtRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,6 +9,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,6 @@ public class SensorDhtService {
     }
 
     public List<GetSensorDhtDataDTO> getDhtDataFromDay(int day) {
-
         List<GetSensorDhtDataDTO> elementsFromDB = new ArrayList<>();
 
         sensorDhtRepository.findByDay(day).ifPresentOrElse(
@@ -95,5 +95,17 @@ public class SensorDhtService {
                         .timestamp(row)
                         .build())
                 .toList();
+    }
+
+    public List<GetSensorDhtDataAvgDTO> getLast24HoursData() {
+        Instant instant = Instant.now().minus(24, ChronoUnit.HOURS);
+        Timestamp tsp = Timestamp.from(instant);
+        return sensorDhtRepository.getLast24HoursData(tsp);
+    }
+
+    public List<GetSensorDhtDataAvgDTO> getLast7DaysData() {
+        Instant instant = Instant.now().minus(7, ChronoUnit.DAYS);
+        Timestamp tsp = Timestamp.from(instant);
+        return sensorDhtRepository.getLast7DaysData(tsp);
     }
 }

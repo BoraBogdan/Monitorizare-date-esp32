@@ -1,22 +1,16 @@
 package com.borabogdan.javaapi.controller;
 
-import com.borabogdan.javaapi.dto.AddSensorDhtRequestDTO;
-import com.borabogdan.javaapi.dto.AddSensorDhtResponseDTO;
+import com.borabogdan.javaapi.dto.*;
 
-import com.borabogdan.javaapi.dto.GetAvailableDaysDTO;
-import com.borabogdan.javaapi.dto.GetSensorDhtDataDTO;
 import com.borabogdan.javaapi.service.SensorDhtService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/dht")
 @RequiredArgsConstructor
-public class SensorDhtController {
+public class SensorDhtRestController {
 
     private final SensorDhtService sensorDhtService;
 
@@ -74,6 +68,30 @@ public class SensorDhtController {
             response = sensorDhtService.getAllAvailableDays();
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getAvgLas24Hours")
+    public ResponseEntity<List<GetSensorDhtDataAvgDTO>> getAvgLast24Hours() {
+        List <GetSensorDhtDataAvgDTO> response = new ArrayList<>();
+        try {
+            response = sensorDhtService.getLast24HoursData();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getAvgLast7Days")
+    public ResponseEntity<List<GetSensorDhtDataAvgDTO>> getAvgLast7Days() {
+        List <GetSensorDhtDataAvgDTO> response = new ArrayList<>();
+        try {
+            response = sensorDhtService.getLast7DaysData();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }

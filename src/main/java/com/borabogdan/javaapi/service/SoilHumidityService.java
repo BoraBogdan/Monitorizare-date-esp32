@@ -1,14 +1,14 @@
 package com.borabogdan.javaapi.service;
 
-import com.borabogdan.javaapi.dto.AddSoilHumidityRequestDTO;
-import com.borabogdan.javaapi.dto.AddSoilHumidityResponseDTO;
-import com.borabogdan.javaapi.dto.GetSoilHumidityDTO;
+import com.borabogdan.javaapi.dto.*;
 import com.borabogdan.javaapi.entity.SoilHumidityEntity;
 import com.borabogdan.javaapi.repository.SoilHumidityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -41,5 +41,17 @@ public class SoilHumidityService {
                         .microcontrollerid(row.getMicrocontrollerID())
                         .build())
                 .toList();
+    }
+
+    public List<GetSoilHumidityAvgDTO> getLast24HoursData() {
+        Instant instant = Instant.now().minus(24, ChronoUnit.HOURS);
+        Timestamp tsp = Timestamp.from(instant);
+        return soilHumidityRepository.getLast24HoursData(tsp);
+    }
+
+    public List<GetSoilHumidityAvgDTO> getLast7DaysData() {
+        Instant instant = Instant.now().minus(7, ChronoUnit.DAYS);
+        Timestamp tsp = Timestamp.from(instant);
+        return soilHumidityRepository.getLast7DaysData(tsp);
     }
 }
