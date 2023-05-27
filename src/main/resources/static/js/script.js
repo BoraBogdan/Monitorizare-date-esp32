@@ -23,6 +23,24 @@ $(document).ready(function () {
         ]
     });
 
+    $("#soil").DataTable({
+        ajax: {
+            url: "soil/getAllSoilData",
+            dataSrc: ''
+        },
+        columns: [
+            {data: "soilHumidity"},
+            {data: "microcontrollerid"},
+            {
+                data: "timestamp",
+                render: function (data) {
+                    const momentLocal = moment(data).local();
+                    return momentLocal.format('DD MMMM YYYY, HH:mm:ss');
+                }
+            }
+        ]
+    });
+
     $(".button").click(function () {
         let elementId = $(this).attr("id-elem");
 
@@ -48,12 +66,77 @@ $(document).ready(function () {
     $("#load-data").click(function () {
         $.ajax({
             type: "GET",
-            url: "dht/getAllData",
+            url: "soil/getAvgLast7Days",
             contentType: "application/json",
             success: function (data) {
-                console.log(data);
+                let xData = [];
+                let yData = [];
+
+                data.forEach((data) => {
+                    xData.push(data.time);
+                    yData.push(data.soilHumidityAvg);
+                });
+                drawLineChart(xData, yData);
+                console.log(xData);
+                console.log(yData);
             }
         });
-    })
+    });
+
+    function drawLineChart(labels, values) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(58, 123, 213, 1)');
+        gradient.addColorStop(1, 'rgba(0, 210, 255, 0.3)');
+        const data = {
+            labels,
+            datasets: [{
+                data: values,
+                label: "Soil Humidity - last 7 days",
+                fill: true,
+                backgroundColor: gradient,
+                borderColor: "#fff",
+                pointBackgroundColor: "#A9A9A9",
+                tension: 0.2,
+            },
+           ],
+        };
+
+        let delayed;
+
+        const config = {
+          type: 'line',
+          data: data,
+          options: {
+              radius: 5,
+              hitRadius: 30,
+              hoverRadius: 10,
+              responsive: true,
+              animation: {
+                  onComplete: () => {
+                      delayed = true;
+                  },
+                  delay: (context) => {
+                      let delay = 0;
+                      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                          delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                      }
+                      return delay;
+                  },
+              },
+              scales: {
+                  y: {
+                      ticks: {
+                          callback: function (value) {
+                              return value + "°C";
+                          },
+                      },
+                  },
+              },
+          },
+        };
+
+        const myChart = new Chart(ctx, config);
+    }
 
 });
