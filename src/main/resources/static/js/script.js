@@ -73,10 +73,12 @@ $(document).ready(function () {
                 let yData = [];
 
                 data.forEach((data) => {
-                    xData.push(data.time);
+                    const formatedDate = moment(data.time).format("DD.MM.YYYY");
+                    xData.push(formatedDate);
                     yData.push(data.soilHumidityAvg);
                 });
                 drawLineChart(xData, yData);
+                drawPolarChart(xData, yData);
                 console.log(xData);
                 console.log(yData);
             }
@@ -134,6 +136,41 @@ $(document).ready(function () {
                   },
               },
           },
+        };
+
+        const myChart = new Chart(ctx, config);
+    }
+
+
+    function drawPolarChart(labels, values) {
+        const ctx = document.getElementById('myPolarArea');
+
+        let newData = [];
+        values.forEach((values) => {
+            if (values <= 2000 ) {
+                newData.push("WET");
+            } else if (values > 2000 && values < 3750) {
+                newData.push("OK");
+            } else if (values >= 3750) {
+                newData.push("DRY");
+            }
+        });
+        console.log(newData);
+
+        const data = {
+            labels,
+            datasets: [{
+                data: newData,
+                label: "Soil Humidity - last 7 days",
+            },
+            ],
+        };
+
+        const config = {
+            type: 'polar',
+            data: newData,
+            options: {
+            },
         };
 
         const myChart = new Chart(ctx, config);

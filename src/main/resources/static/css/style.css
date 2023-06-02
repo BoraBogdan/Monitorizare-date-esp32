@@ -10,3 +10,28 @@
     width: 50vw;
     height: 50vh;
 }
+
+.polar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 50vw;
+    height: 50vh;
+}
+
+table#example.display tbody tr:nth-child(even):hover td{
+    background-color: #ffa !important;
+}
+
+table#example.display tbody tr:nth-child(odd):hover td {
+    background-color: #ffa !important;
+}
+
+table#soil.display tbody tr:nth-child(even):hover td{
+    background-color: #ffa !important;
+}
+
+table#soil.display tbody tr:nth-child(odd):hover td {
+    background-color: #ffa !important;
+}

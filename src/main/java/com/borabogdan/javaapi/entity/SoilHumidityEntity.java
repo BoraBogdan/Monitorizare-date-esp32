@@ -22,7 +22,6 @@ public class SoilHumidityEntity extends AbstractEntity{
     @Column(name = "id")
     private Integer ID;
 
-    @NotNull
     @Column(name = "soil_humidity")
     private int soilHumidity;
 
