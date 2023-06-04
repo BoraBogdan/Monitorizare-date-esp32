@@ -36,7 +36,7 @@ public class SoilHumidityRestController {
         return soilHumidityService.getAllSoilData();
     }
 
-    @GetMapping("/getAvgLas24Hours")
+    @GetMapping("/getAvgLast24Hours")
     public ResponseEntity<List<GetSoilHumidityAvgDTO>> getAvgLast24Hours() {
         List <GetSoilHumidityAvgDTO> response = new ArrayList<>();
         try {

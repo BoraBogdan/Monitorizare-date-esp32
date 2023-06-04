@@ -13,7 +13,12 @@ import java.util.List;
 @Repository
 public interface SoilHumidityRepository extends JpaRepository<SoilHumidityEntity, Integer> {
 
-    @Query("SELECT new com.borabogdan.javaapi.dto.GetSoilHumidityAvgDTO( EXTRACT(HOUR FROM s.timestamp), AVG(s.soilHumidity) ) FROM SoilHumidityEntity s WHERE s.timestamp >= :fromTimestamp GROUP BY 1")
+//    @Query("SELECT new com.borabogdan.javaapi.dto.GetSoilHumidityAvgDTO( EXTRACT(HOUR FROM s.timestamp), AVG(s.soilHumidity) ) FROM SoilHumidityEntity s WHERE s.timestamp >= :fromTimestamp GROUP BY 1")
+@Query("SELECT new com.borabogdan.javaapi.dto.GetSoilHumidityAvgDTO(function('date_trunc', HOUR, s.timestamp), AVG(s.soilHumidity)) "
+        + "FROM SoilHumidityEntity s "
+        + "WHERE s.timestamp >= :fromTimestamp "
+        + "GROUP BY 1 "
+        + "ORDER BY 1")
     List<GetSoilHumidityAvgDTO> getLast24HoursData(@Param("fromTimestamp") Timestamp fromTimestamp);
 
     @Query("SELECT new com.borabogdan.javaapi.dto.GetSoilHumidityAvgDTO(function('date_trunc', DAY, s.timestamp), AVG(s.soilHumidity)) "

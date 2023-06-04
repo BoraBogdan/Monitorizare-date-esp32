@@ -1,6 +1,5 @@
 $(document).ready(function () {
     console.log("Loaded jQuery");
-
     moment.locale('ro');
     $.fn.dataTable.moment( 'DD MMMM YYYY, HH:mm:ss' );
     $("#example").DataTable({
@@ -74,6 +73,7 @@ $(document).ready(function () {
 
                 data.forEach((data) => {
                     const formatedDate = moment(data.time).format("DD.MM.YYYY");
+                    // const formatedDate = moment(data.time).format("HH:mm")
                     xData.push(formatedDate);
                     yData.push(data.soilHumidityAvg);
                 });
@@ -143,7 +143,7 @@ $(document).ready(function () {
 
 
     function drawPolarChart(labels, values) {
-        const ctx = document.getElementById('myPolarArea');
+        const ctx = document.getElementById('myPolarArea').getContext('2d');
 
         let newData = [];
         values.forEach((values) => {
@@ -155,21 +155,28 @@ $(document).ready(function () {
                 newData.push("DRY");
             }
         });
-        console.log(newData);
+
+        bgColors = [];
+        for (let i = 0; i < 7; i++) {
+            const randomColor = Math.floor(Math.random()*16777215).toString(16);
+            bgColors.push("#"+randomColor);
+        }
 
         const data = {
-            labels,
+            labels: labels,
             datasets: [{
-                data: newData,
-                label: "Soil Humidity - last 7 days",
+                label: newData,
+                data: values,
+                backgroundColor: bgColors,
             },
             ],
         };
 
         const config = {
-            type: 'polar',
-            data: newData,
+            type: 'pie',
+            data: data,
             options: {
+
             },
         };
 
