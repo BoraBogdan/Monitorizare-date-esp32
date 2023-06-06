@@ -29,9 +29,22 @@
     <div class = "polar">
         <canvas id = "myPolarArea"></canvas>
     </div>
+    <div class = "container text-center">
+        <div class = "row">
+            <div class = "col">
+                <button class="btn btn-secondary btn-lg" id="load-data">Load data</button>
+            </div>
+            <div class = "col">
+                <button class="btn btn-secondary btn-lg" id="data24hours">Data 24H</button>
+            </div>
+            <div class = "col">
+                <button class="btn btn-secondary btn-lg" id="data7days">Data 7D</button>
+            </div>
+        </div>
+    </div>
     <h1 th:text = "${nume}">Nume</h1>
     <p>I generated a random number from Java Code, the number: <span th:text = "${randomNumber}">This is the number</span> was created by a SecureRandom.</p>
-    <span><button class="btn btn-secondary btn-lg" id="load-data">Load data</button></span>
+
     <ul th:each = "element : ${lista}">
         <li>
             <span th:text = "${element.airHumidity}"></span>

@@ -73,7 +73,7 @@ public class SensorDhtRestController {
         }
     }
 
-    @GetMapping("/getAvgLas24Hours")
+    @GetMapping("/getAvgLast24Hours")
     public ResponseEntity<List<GetSensorDhtDataAvgDTO>> getAvgLast24Hours() {
         List <GetSensorDhtDataAvgDTO> response = new ArrayList<>();
         try {
