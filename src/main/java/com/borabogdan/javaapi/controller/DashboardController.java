@@ -24,6 +24,12 @@ public class DashboardController {
         return "index";
     }
 
+    @GetMapping("/menu")
+    public String menu(Model model) {
+
+        return "menu";
+    }
+
 
 
 }
