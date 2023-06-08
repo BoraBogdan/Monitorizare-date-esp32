@@ -15,21 +15,18 @@ public class DashboardController {
 
     private final SensorDhtRestController sensorDhtController;
 
-    @GetMapping("/site")
-    public String index(Model model) {
-        model.addAttribute("nume", "Bogdan");
-        model.addAttribute("randomNumber", Math.abs(new SecureRandom().nextInt(1000)));
-        List<GetSensorDhtDataDTO> allDhtData = sensorDhtController.getAllDhtData();
-        model.addAttribute("lista", allDhtData);
-        return "index";
-    }
-
     @GetMapping("/menu")
     public String menu(Model model) {
-
         return "menu";
     }
 
+    @GetMapping("/dhtPage")
+    public String dhtPage(Model model) {
+        return "dhtPage";
+    }
 
-
+    @GetMapping("/soilPage")
+    public String soilPage(Model model) {
+        return "soilPage";
+    }
 }
