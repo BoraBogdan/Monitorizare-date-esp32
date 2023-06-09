@@ -32,7 +32,10 @@ $(document).ready(function () {
                     return momentLocal.format('DD MMMM YYYY, HH:mm:ss');
                 }
             }
-        ]
+        ],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ro.json',
+        },
     });
 
     function generateDhtData() {
@@ -207,6 +210,9 @@ $(document).ready(function () {
                       text: 'Umiditatea din aer',
                         padding: {
                             top: 40,
+                        },
+                        font: {
+                          size: 30,
                         },
 
                     },

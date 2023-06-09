@@ -19,7 +19,10 @@ $(document).ready(function () {
                     return momentLocal.format('DD MMMM YYYY, HH:mm:ss');
                 }
             }
-        ]
+        ],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ro.json',
+        },
     });
 
     function generateSoilData() {
@@ -132,6 +135,17 @@ $(document).ready(function () {
             data: data,
             options: {
                 plugins: {
+                    title: {
+                        display: true,
+                        text: 'Umiditatea solului',
+                        font: {
+                          size: 30,
+                        },
+                        padding: {
+                            top: 40,
+                        },
+
+                    },
                     legend: {
                         position: 'right'
                     },

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sol</title>
+    <title>Sol-Date</title>
     <!--CSS-->
     <link rel = "stylesheet" th:href="@{/css/menuStyle.css}">
     <link rel = "stylesheet" th:href="@{/css/soilStyle.css}">
@@ -59,16 +59,16 @@
             <table id="soilTable" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Soil-Humidity</th>
-                        <th>Mcu</th>
-                        <th>Timestamp</th>
+                        <th>Umiditatea solului</th>
+                        <th>ID - microcontroller</th>
+                        <th>Dat&#259; / Or&#259; &#238;nregistrare</th>
                    </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Soil-Humidity</th>
-                        <th>Mcu</th>
-                        <th>Timestamp</th>
+                        <th>Umiditatea solului</th>
+                        <th>ID - microcontroller</th>
+                        <th>Dat&#259; / Or&#259; &#238;nregistrare</th>
                     </tr>
                 </tfoot>
 
@@ -80,10 +80,10 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-secondary btn-lg" id="data24hours">Data 24H</button>
+                    <button class="btn btn-secondary btn-lg" id="data24hours">Vizualizare 24 ore</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-secondary btn-lg" id="data7days">Data 7D</button>
+                    <button class="btn btn-secondary btn-lg" id="data7days">Vizualizare 7 zile</button>
                 </div>
             </div>
             <div class="row">
