@@ -1,0 +1,23 @@
+table#dhtTable.display tbody tr:nth-child(even):hover td{
+    background-color: #ffa !important;
+}
+
+table#dhtTable.display tbody tr:nth-child(odd):hover td {
+    background-color: #ffa !important;
+}
+
+.polar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 800px;
+}
+
+.chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 780px;
+    height: 600px;
+}

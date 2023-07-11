@@ -9,11 +9,14 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class GetSensorDhtRequestDTO {
+public class AddSensorDhtRequestDTO {
 
     @NotNull
     private double airHumidity;
 
     @NotNull
     private double temperature;
+
+    @NotNull
+    private int microcontrollerID;
 }

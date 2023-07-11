@@ -3,13 +3,16 @@ package com.borabogdan.javaapi.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class GetSensorDhtResponseDTO {
+@Builder
+public class GetSensorDhtDataDTO {
 
     @NotNull
     private double airHumidity;
@@ -17,5 +20,9 @@ public class GetSensorDhtResponseDTO {
     @NotNull
     private double temperature;
 
-    private String message;
+    @NotNull
+    private Timestamp timestamp;
+
+    @NotNull
+    private int microcontrollerid;
 }
