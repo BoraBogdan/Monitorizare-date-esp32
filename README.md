@@ -1,4 +1,4 @@
-# This is the API component
+# API component & Visualization Website
 
 In this repo you can find all endpoints needed to receive and store data from a DHT11 and a resistive soil moisture sensors. 
 
