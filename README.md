@@ -1,6 +1,6 @@
 # This is the API component
 
-In this repo you can find all endpoints needed to receive and store data from a DHT11 and a resistive soil humidity sensors. 
+In this repo you can find all endpoints needed to receive and store data from a DHT11 and a resistive soil moisture sensors. 
 
 In the resource folder you can find all the files needed for the website where the data is structured in tables and graphs. This was done using Thyemeleaf.
 
