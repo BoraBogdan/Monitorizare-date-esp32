@@ -2,7 +2,7 @@
 
 In this repo you can find all endpoints needed to receive and store data from a DHT11 and a resistive soil moisture sensors. 
 
-In the resource folder you can find all the files needed for the website where the data is structured in tables and graphs. This was done using Thyemeleaf.
+Using Thymeleaf, in the _resource_ folder you can find all the files needed for the website where the data is structured in tables and graphs.
 
 The tables are created using DataTable.js and the graphs are created using Chart.js. The data is being extracted from the PostgreSQL db using AJAX.
 
